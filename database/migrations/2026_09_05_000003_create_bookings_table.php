@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('customer_email')->nullable();
             $table->date('booking_date');
             $table->string('booking_time'); // e.g. 19:00
+            $table->string('booking_end_time')->nullable(); // e.g. 21:00
             $table->unsignedSmallInteger('party_size')->default(1);
             $table->string('status')->default('confirmed'); // confirmed, pending_deposit, completed, cancelled
             $table->decimal('deposit_amount', 10, 2)->default(0);

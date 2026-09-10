@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json('amenities')->nullable();
             $table->string('gradient_thumb')->nullable();
+            $table->text('image_url')->nullable();
+            $table->decimal('deposit_amount', 10, 2)->default(250.00);
             $table->timestamps();
         });
     }

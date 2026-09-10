@@ -24,6 +24,7 @@ class Booking extends Model
         'customer_email',
         'booking_date',
         'booking_time',
+        'booking_end_time',
         'party_size',
         'status',
         'deposit_amount',
@@ -58,5 +59,33 @@ class Booking extends Model
     public function venueItem(): BelongsTo
     {
         return $this->belongsTo(VenueItem::class, 'venue_item_id');
+    }
+
+    /**
+     * Get the end time for this booking (defaults to start time + 2 hours).
+     */
+    public function getEndTime(): string
+    {
+        if ($this->booking_end_time) {
+            return $this->booking_end_time;
+        }
+
+        try {
+            $parts = explode(':', $this->booking_time);
+            $h = (int) $parts[0] + 2;
+            $m = $parts[1] ?? '00';
+
+            return sprintf('%02d:%s', min($h, 23), $m);
+        } catch (\Throwable) {
+            return '21:00';
+        }
+    }
+
+    /**
+     * Get human-readable time range string, e.g. "18:00 – 20:00 น."
+     */
+    public function getTimeRangeLabel(): string
+    {
+        return "{$this->booking_time} – {$this->getEndTime()} น.";
     }
 }

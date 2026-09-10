@@ -29,6 +29,8 @@ class Venue extends Model
         'description',
         'amenities',
         'gradient_thumb',
+        'image_url',
+        'deposit_amount',
     ];
 
     /**
@@ -42,6 +44,7 @@ class Venue extends Model
             'rating' => 'decimal:1',
             'reviews_count' => 'integer',
             'amenities' => 'array',
+            'deposit_amount' => 'decimal:2',
         ];
     }
 
